@@ -1,6 +1,12 @@
     var geocoder;
     var map;
     var markers = [];
+    var delay = 300;
+    var nextAddress = 0;
+    var addresses = [];
+    var plotted = [];
+    var bounds = new google.maps.LatLngBounds();
+    var interval; 
     
     function initialize() {
         geocoder = new google.maps.Geocoder();
@@ -13,47 +19,77 @@
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
         for (var i = 0; i < offices.length; i++) {
-          addToMap(offices[i], 'office');
+            offices[i].type = 'office';
+            addresses.push(offices[i]);
+
         }
 
         for (var i = 0; i < plotData.length; i++) {
-          addToMap(plotData[i], 'employee')
+            plotData[i].type = 'employee'
+            console.log(plotData[i])
+            addresses.push(plotData[i]);
         }
+
+        // for (var i = 0; i < addresses.length; i++) {
+        //     addToMap(addresses[i]);
+        // }
+        // console.log(addresses)
+        interval = setInterval(function(){delayCode(addresses);}, 900);
     }
 
-  function addToMap(item, type) {
-    console.log('addToMap', item, type)
-    return
 
 
-    geocoder.geocode( { 'address': zip}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-          name: zip,
-          icon: getIcon(type)
-        });
-        markers.push(marker);
+            var chunk = 0;
+            
+            function delayCode(locations2) {
+                   var step = 1;
+                   // console.log(markers.length, addresses.length)
+                    if ((locations2.length+1-chunk) > step) {
+                          sGroup = locations2.slice(chunk, chunk+step);
+                              for (x=0; x<sGroup.length; x++) {
 
-        var infowindow = new google.maps.InfoWindow();
+                                    //this is where the OVER_QUERY_LIMIT alert happens
+                                    addToMap(sGroup[x]);
+                              }
+                          chunk+=step;
+                    } else{
+                        console.log(markers.length, addresses.length, 'finished')
+                        clearInterval(interval);
+            // compareDistances();
+                    }
+            }
 
-        var i = markers.length-1
 
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-          return function() {
-            infowindow.setContent(markers[i][0]);
-            infowindow.open(map, marker);
-          }
-        })(marker, i));
+    function addToMap(item) {
+        console.log(item)
 
-      } else {
-        console.log("Geocode was not successful for the following reason: " + status);
-      }
+        geocoder.geocode({address: item['Post Code']}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            // map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                content: item,
+                icon: getIcon(item.type)
+            });
+            markers.push(marker);
+
+            var infowindow = new google.maps.InfoWindow();
+
+            var i = markers.length-1
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    console.log(markers[i].content)
+                    infowindow.setContent(markers[i].content.Surname);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        } else {
+            console.log("Geocode was not successful for the following reason: " + status);
+        }
     });
   }
-
 
   function getIcon(type) {
     if (type == 'office') return './images/blue-dot.png';
@@ -90,3 +126,5 @@
         d = d * 0.621371192; // convert to miles
         return d;
     }
+
+

@@ -1,14 +1,14 @@
 var defaults = {
 	Lat: 52.480111,
 	Lon: -1.905656,
-	Zoom: 13
+	Zoom: 8
 }
 
 var offices = [
 	{
 		"Name": "Main Office",
 		"type": "officeBlue",
-		"Post Code": "B2"
+		"Post Code": "B3 3DH"
 	}
 ]
 
@@ -21,5 +21,14 @@ var plotData = [
 		"Location": "Birmingham",
 		"Post Code": "SW7 5BD",
 		"Contractual Base": "Glasgow"
+	},
+	{
+		"Known As": "Test",
+		"Surname": "Data",
+		"Department": "Testing",
+		"Town": "London",
+		"Location": "Liverpool",
+		"Post Code": "L3 8EN",
+		"Contractual Base": "Newcastle"
 	}
 ]
