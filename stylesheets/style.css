@@ -1,0 +1,11 @@
+* {
+	  box-sizing: border-box;
+}
+
+body {
+  margin: 1px;
+  padding:5px;
+  font-family:  roboto,  Arial, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color:#656565;
+  font-weight:300;
+}

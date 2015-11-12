@@ -1,7 +1,7 @@
     var geocoder;
     var map;
     var markers = [];
-    var delay = 300;
+    var delay = 250;
     var nextAddress = 0;
     var addresses = [];
     var plotted = [];
@@ -19,7 +19,7 @@
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
         for (var i = 0; i < offices.length; i++) {
-            offices[i].type = 'office';
+            // offices[i].type = 'office';
             addresses.push(offices[i]);
 
         }
@@ -92,7 +92,8 @@
   }
 
   function getIcon(type) {
-    if (type == 'office') return './images/blue-dot.png';
+    if (type == 'officeBlue') return './images/blue-dot.png';
+    if (type == 'officeGreen') return './images/green-dot.png';
 
     return './images/red-dot.png';
   }
