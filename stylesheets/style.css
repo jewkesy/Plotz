@@ -40,11 +40,13 @@ body {
 }
 
 .loaded {
+	/*border: 1px solid #eee;*/
 	border: 1px solid green;
 	background-color: #ebfaeb;
 }
 
 .failed {
+/*	border: 1px solid #eee;*/
 	border: 1px solid red;
 	background-color: #ffebe5;
 }
