@@ -1,13 +1,14 @@
     var geocoder;
     var map;
     var markers = [];
-    var delay = 250;
+    var delay = getParameterByName('delay') || 900;
+    var autoZoom = getParameterByName('autozoom') || true;
     var nextAddress = 0;
     var addresses = [];
     var plotted = [];
     var bounds = new google.maps.LatLngBounds();
     var interval; 
-    
+
     function initialize() {
         for (var i = 0; i < offices.length; i++) {
             addresses.push(offices[i]);
@@ -15,6 +16,7 @@
 
         for (var i = 0; i < plotData.length; i++) {
             plotData[i].type = 'employee'
+            plotData[i]._id = 'emp_'+i
             buildListItem(plotData[i]);
             addresses.push(plotData[i]);
         }
@@ -23,39 +25,23 @@
     }
 
     function buildListItem(item) {
+        // console.log(item)
 
-        $('listPlotPoints')
+        var container = $('<div></div>').addClass('pending').addClass('listItem').attr('id', item._id).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
 
-        console.log(item)
+        var who = $('<span></span>').addClass('name').html(item['Known As'] + ' ' + item.Surname);
 
+        var br = $('<br/>')
+        var where = $('<span></span>').addClass('location').html(item.Location);
+        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Mileage + ' miles');
 
+        container.append(who).append(where).append(br).append(details);
 
-var container = $('<div></div>').attr('id', item.Surname).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
-var avatar = $('<img></img>').addClass('avatar').attr('src', './images/avatar.png');
-var who = $('<span></span>').addClass('name').html(item['Known As'] + ' ' + item.Surname);
+        $('#listPlotPoints').append(container)
 
-// who.append(' <i>' + drone.ipaddress + '</i>');
-// if (drone.bleState && drone.bleState.toLowerCase() == 'poweredon') {
-// container.addClass('bleOn');
-// }
-
-// var what = $('<span></span>').addClass('beacons').html(drone.pingFreq);
-var where = $('<span></span>').addClass('location').html(item.Location);
-// var requests = $('<span></span><span class="reqCount"></span>');
-// var cancel = $('<span></span>').html('remove').click(function() {
-// highway.dom.removeDrone(drone);
-// });
-container.append(avatar).append(who).append(where);
-
-
-
-$('#listPlotPoints').append(container)
-
-
-// if ( $('#autoAdd').hasClass('is-checked') ) {
-//             $('#autoAdd').removeClass('is-checked');
+        // if ( $('#autoAdd').hasClass('is-checked') ) {
+        //             $('#autoAdd').removeClass('is-checked');
     }
-
 
     function buildMap() {
         geocoder = new google.maps.Geocoder();
@@ -66,11 +52,8 @@ $('#listPlotPoints').append(container)
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-        
-        interval = setInterval(function(){delayCode(addresses);}, 900);
+        interval = setInterval(function(){delayCode(addresses);}, delay);
     }
-
 
     var chunk = 0;
     
@@ -91,10 +74,11 @@ $('#listPlotPoints').append(container)
     }
 
     function addToMap(item) {
-        console.log(item)
+        // console.log(item)
 
         geocoder.geocode({address: item['Post Code']}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
+            // console.log(results)
             // map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
                 map: map,
@@ -106,13 +90,29 @@ $('#listPlotPoints').append(container)
 
             var infowindow = new google.maps.InfoWindow();
 
-            var i = markers.length-1
+            var i = markers.length-1;
+
+            if (autoZoom == 'true') {
+                bounds.extend(results[0].geometry.location);
+                map.fitBounds(bounds);   
+            }
+            
+
+            $('#' + item._id).addClass('loaded').removeClass('pending')
+
+
+            // map.fitBounds(bounds);
+            // var listener = google.maps.event.addListener(map, "idle", function() { 
+            //   if (map.getZoom() > 16) map.setZoom(16); 
+            //   google.maps.event.removeListener(listener); 
+            // });
 
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
+                    autoZoom = false;
                     console.log(markers[i].content)
                     if (markers[i].content.type == 'employee') {
-                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Town + ', ' + markers[i].content['Post Code'] + '<br/>Mileage: ' + markers[i].content.Mileage);
+                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Town + ', ' + markers[i].content['Post Code'] + '<br/>Distance: ' + markers[i].content.Mileage + ' miles');
                     } else {
                         infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['Post Code']);
                     }
@@ -121,6 +121,7 @@ $('#listPlotPoints').append(container)
                 }
             })(marker, i));
         } else {
+            $('#' + item._id).addClass('failed').removeClass('pending')
             console.log("Geocode was not successful for the following reason: " + status);
         }
     });
@@ -163,4 +164,9 @@ $('#listPlotPoints').append(container)
         return d;
     }
 
-
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

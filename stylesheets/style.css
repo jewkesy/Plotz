@@ -8,21 +8,49 @@ body {
   font-family:  roboto,  Arial, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#656565;
   font-weight:300;
+  font-size: 1.1em
 }
 
 .map {
 	position: absolute;
-	left: 250px;
+	left: 233px;
 	right: 0;
 	height: 100%
 }
 
 .list {
-	width: 250px;
+	width: 230px;
 	float: left;
+
 }
 
 .listItem {
+	background-image: url("../images/avatar.png");
+	background-repeat: no-repeat;
+	background-size: 25px 30px;
+	
+	width: 220px;
+	margin-bottom: 2px;
+	float: left;
+	padding-left: 35px;
+}
+
+.pending {
+	border: 1px solid #eee;
+}
+
+.loaded {
+	border: 1px solid green;
+	background-color: #ebfaeb;
+}
+
+.failed {
 	border: 1px solid red;
-	width: 250px;
+	background-color: #ffebe5;
+}
+
+.location {
+	padding-left: 3px;
+	font-style: italic;
+
 }
