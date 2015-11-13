@@ -9,6 +9,55 @@
     var interval; 
     
     function initialize() {
+        for (var i = 0; i < offices.length; i++) {
+            addresses.push(offices[i]);
+        }
+
+        for (var i = 0; i < plotData.length; i++) {
+            plotData[i].type = 'employee'
+            buildListItem(plotData[i]);
+            addresses.push(plotData[i]);
+        }
+
+        buildMap();
+    }
+
+    function buildListItem(item) {
+
+        $('listPlotPoints')
+
+        console.log(item)
+
+
+
+var container = $('<div></div>').attr('id', item.Surname).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
+var avatar = $('<img></img>').addClass('avatar').attr('src', './images/avatar.png');
+var who = $('<span></span>').addClass('name').html(item['Known As'] + ' ' + item.Surname);
+
+// who.append(' <i>' + drone.ipaddress + '</i>');
+// if (drone.bleState && drone.bleState.toLowerCase() == 'poweredon') {
+// container.addClass('bleOn');
+// }
+
+// var what = $('<span></span>').addClass('beacons').html(drone.pingFreq);
+var where = $('<span></span>').addClass('location').html(item.Location);
+// var requests = $('<span></span><span class="reqCount"></span>');
+// var cancel = $('<span></span>').html('remove').click(function() {
+// highway.dom.removeDrone(drone);
+// });
+container.append(avatar).append(who).append(where);
+
+
+
+$('#listPlotPoints').append(container)
+
+
+// if ( $('#autoAdd').hasClass('is-checked') ) {
+//             $('#autoAdd').removeClass('is-checked');
+    }
+
+
+    function buildMap() {
         geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(defaults.Lat, defaults.Lon);  // BS16 1EJ
         var myOptions = {
@@ -18,47 +67,28 @@
         }
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-        for (var i = 0; i < offices.length; i++) {
-            // offices[i].type = 'office';
-            addresses.push(offices[i]);
-
-        }
-
-        for (var i = 0; i < plotData.length; i++) {
-            plotData[i].type = 'employee'
-            console.log(plotData[i])
-            addresses.push(plotData[i]);
-        }
-
-        // for (var i = 0; i < addresses.length; i++) {
-        //     addToMap(addresses[i]);
-        // }
-        // console.log(addresses)
+        
         interval = setInterval(function(){delayCode(addresses);}, 900);
     }
 
 
-
-            var chunk = 0;
-            
-            function delayCode(locations2) {
-                   var step = 1;
-                   // console.log(markers.length, addresses.length)
-                    if ((locations2.length+1-chunk) > step) {
-                          sGroup = locations2.slice(chunk, chunk+step);
-                              for (x=0; x<sGroup.length; x++) {
-
-                                    //this is where the OVER_QUERY_LIMIT alert happens
-                                    addToMap(sGroup[x]);
-                              }
-                          chunk+=step;
-                    } else{
-                        console.log(markers.length, addresses.length, 'finished')
-                        clearInterval(interval);
-            // compareDistances();
-                    }
+    var chunk = 0;
+    
+    function delayCode(locations2) {
+        var step = 1;
+        // console.log(markers.length, addresses.length)
+        if ((locations2.length+1-chunk) > step) {
+            sGroup = locations2.slice(chunk, chunk+step);
+            for (x=0; x<sGroup.length; x++) {
+                //this is where the OVER_QUERY_LIMIT alert happens
+                addToMap(sGroup[x]);
             }
-
+            chunk+=step;
+        } else{
+            console.log(markers.length, addresses.length, 'finished')
+            clearInterval(interval);
+        }
+    }
 
     function addToMap(item) {
         console.log(item)
@@ -81,7 +111,12 @@
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                     console.log(markers[i].content)
-                    infowindow.setContent(markers[i].content.Surname);
+                    if (markers[i].content.type == 'employee') {
+                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Town + ', ' + markers[i].content['Post Code'] + '<br/>Mileage: ' + markers[i].content.Mileage);
+                    } else {
+                        infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['Post Code']);
+                    }
+                    
                     infowindow.open(map, marker);
                 }
             })(marker, i));

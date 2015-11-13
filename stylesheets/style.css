@@ -9,3 +9,20 @@ body {
   color:#656565;
   font-weight:300;
 }
+
+.map {
+	position: absolute;
+	left: 250px;
+	right: 0;
+	height: 100%
+}
+
+.list {
+	width: 250px;
+	float: left;
+}
+
+.listItem {
+	border: 1px solid red;
+	width: 250px;
+}

@@ -20,7 +20,8 @@ var plotData = [
 		"Town": "London",
 		"Location": "Birmingham",
 		"Post Code": "SW7 5BD",
-		"Contractual Base": "Glasgow"
+		"Contractual Base": "Glasgow",
+		"Mileage": 20
 	},
 	{
 		"Known As": "Test",
@@ -29,6 +30,7 @@ var plotData = [
 		"Town": "London",
 		"Location": "Liverpool",
 		"Post Code": "L3 8EN",
-		"Contractual Base": "Newcastle"
+		"Contractual Base": "Newcastle",
+		"Mileage": 10
 	}
 ]
