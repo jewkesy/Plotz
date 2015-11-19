@@ -79,7 +79,7 @@
         var thePostCode = ''
         if (item.type == "employee") {
             thePostCode = item.Address['Post Code']
-        } else if (item.type == "officeBlue") {
+        } else if (item.type == "officeBlue" || item.type == "officeGreen") {
             thePostCode = item['Post Code']
         } else {
             console.log('Unhandled type', item)
@@ -121,7 +121,7 @@
                     autoZoom = false;
                     console.log(markers[i].content)
                     if (markers[i].content.type == 'employee') {
-                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Town + ', ' + markers[i].content['Post Code'] + '<br/>Distance: ' + markers[i].content.Mileage + ' miles');
+                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Address.Town + ', ' + markers[i].content.Address['Post Code'] + '<br/>Distance: ' + markers[i].content.Locations[0].Mileage + ' miles');
                     } else {
                         infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['Post Code']);
                     }
