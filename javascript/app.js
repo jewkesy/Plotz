@@ -25,15 +25,15 @@
     }
 
     function buildListItem(item) {
-        // console.log(item)
+        console.log(item)
 
         var container = $('<div></div>').addClass('pending').addClass('listItem').attr('id', item._id).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
 
         var who = $('<span></span>').addClass('name').html(item['Known As'] + ' ' + item.Surname);
 
         var br = $('<br/>')
-        var where = $('<span></span>').addClass('location').html(item.Location);
-        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Mileage + ' miles');
+        var where = $('<span></span>').addClass('location').html(item.Locations[0]);
+        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Locations[0].Mileage + ' miles');
 
         container.append(who).append(where).append(br).append(details);
 
@@ -74,9 +74,18 @@
     }
 
     function addToMap(item) {
-        // console.log(item)
+        console.log(item)
 
-        geocoder.geocode({address: item['Post Code']}, function(results, status) {
+        var thePostCode = ''
+        if (item.type == "employee") {
+            thePostCode = item.Address['Post Code']
+        } else if (item.type == "officeBlue") {
+            thePostCode = item['Post Code']
+        } else {
+            console.log('Unhandled type', item)
+        }
+
+        geocoder.geocode({address: thePostCode}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             // console.log(results)
             // map.setCenter(results[0].geometry.location);

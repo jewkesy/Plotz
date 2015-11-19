@@ -17,20 +17,42 @@ var plotData = [
 		"Known As": "Daryl",
 		"Surname": "Jewkes",
 		"Department": "Innovation",
-		"Town": "London",
+		"Address": {
+            "Town": "London",
+            "Post Code": "SW7 5BD"
+        },
 		"Location": "Birmingham",
-		"Post Code": "SW7 5BD",
 		"Contractual Base": "Glasgow",
-		"Mileage": 20
+		"Locations": [
+            {
+            	"Post Code": "L3 8EN",
+                "Mileage": 58
+            },
+            {
+            	"Post Code": "EH1 2NG",
+            	"Mileage": 123
+            }
+        ]
 	},
 	{
-		"Known As": "Test",
-		"Surname": "Data",
-		"Department": "Testing",
-		"Town": "London",
+		"Known As": "Millennium",
+		"Surname": "Stadium",
+		"Department": "Sports",
+		"Address": {
+            "Town": "Cardiff",
+            "Post Code": "CF11 8AZ"
+        },
 		"Location": "Liverpool",
-		"Post Code": "L3 8EN",
 		"Contractual Base": "Newcastle",
-		"Mileage": 10
+		"Locations": [
+            {
+            	"Post Code": "L3 8EN",
+                "Mileage": 43
+            },
+            {
+            	"Post Code": "EH1 2NG",
+            	"Mileage": 22
+            }
+        ]
 	}
 ]
