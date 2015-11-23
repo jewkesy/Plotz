@@ -54,5 +54,8 @@ body {
 .location {
 	padding-left: 3px;
 	font-style: italic;
+}
 
+.detail {
+	clear: both;
 }

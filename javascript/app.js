@@ -14,7 +14,7 @@
             addresses.push(offices[i]);
         }
 
-        for (var i = 0; i < plotData.length; i++) {
+        for (var i = 110; i < plotData.length; i++) {
             plotData[i].type = 'employee'
             plotData[i]._id = 'emp_'+i
             buildListItem(plotData[i]);
@@ -30,13 +30,23 @@
 
         var container = $('<div></div>').addClass('pending').addClass('listItem').attr('id', item._id).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
 
-        var who = $('<span></span>').addClass('name').html(item['Known As'] + ' ' + item.Surname);
+        var who = $('<span></span>').addClass('name').html(item['FirstName'] + ' ' + item.Surname);
 
         var br = $('<br/>')
-        var where = $('<span></span>').addClass('location').html(item.Locations[0]);
-        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Locations[0].Miles.text + ' miles');
+        var where = $('<span></span>').addClass('location').html(item.Location);
+       
 
-        container.append(who).append(where).append(br).append(details);
+        container.append(who).append(where).append(br);
+
+        var list = $('<ul></ul>')
+        for (var i = 0; i < item.Locations.length; i++) {
+            var details = $('<li>').addClass('details').html(item.Locations[i].Miles.text + ' miles to ' + item.Locations[i].Office);
+
+            list.append(details)
+        }
+        container.append(list)
+        
+
 
         $('#listPlotPoints').append(container)
 
@@ -79,9 +89,9 @@
 
         var thePostCode = ''
         if (item.type == "employee") {
-            thePostCode = item.Address['Post Code']
+            thePostCode = item.Address['PostCode']
         } else if (item.type == "officeBlue" || item.type == "officeGreen") {
-            thePostCode = item['Post Code']
+            thePostCode = item['PostCode']
         } else {
             console.log('Unhandled type', item)
         }
@@ -132,7 +142,7 @@
             })(marker, i));
         } else {
             $('#' + item._id).addClass('failed').removeClass('pending')
-            console.log("Geocode was not successful for the following reason: " + status);
+            console.log("Geocode was not successful for the following reason: " + status, item);
         }
     });
   }

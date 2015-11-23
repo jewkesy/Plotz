@@ -8,29 +8,29 @@ var offices = [
 	{
 		"Name": "Main Office",
 		"type": "officeBlue",
-		"Post Code": "B3 3DH"
+		"PostCode": "B3 3DH"
 	},
 	{
 		"Name": "Booking Office",
 		"type": "officeGreen",
-		"Post Code": "NE1 4ST"
+		"PostCode": "NE1 4ST"
 	}
 ]
 
 var plotData = [
 	{
-		"Known As": "Daryl",
+		"FirstName": "Daryl",
 		"Surname": "Jewkes",
 		"Department": "Innovation",
 		"Address": {
             "Town": "London",
-            "Post Code": "SW7 5BD"
+            "PostCode": "SW7 5BD"
         },
 		"Location": "Birmingham",
 		"Contractual Base": "Glasgow",
 		"Locations": [
             {
-            	"Post Code": "L3 8EN",
+            	"PostCode": "L3 8EN",
                 "Office": "Liverpool",
                 "Miles": {
                 	"text": 88
@@ -45,7 +45,7 @@ var plotData = [
                 }
             },
             {
-            	"Post Code": "EH1 2NG",
+            	"PostCode": "EH1 2NG",
             	"Office": "Edinburgh",
             	"Miles": {
                 	"text": 88
@@ -62,18 +62,18 @@ var plotData = [
         ]
 	},
 	{
-		"Known As": "Millennium",
+		"FirstName": "Millennium",
 		"Surname": "Stadium",
 		"Department": "Sports",
 		"Address": {
             "Town": "Cardiff",
-            "Post Code": "CF11 8AZ"
+            "PostCode": "CF11 8AZ"
         },
 		"Location": "Liverpool",
 		"Contractual Base": "Newcastle",
 		"Locations": [
             {
-            	"Post Code": "L3 8EN",
+            	"PostCode": "L3 8EN",
                 "Office": "Liverpool",
                 "Miles": {
                 	"text": 49
@@ -88,7 +88,7 @@ var plotData = [
                 }
             },
             {
-            	"Post Code": "EH1 2NG",
+            	"PostCode": "EH1 2NG",
             	"Office": "Edinburgh",
             	"Miles": {
                 	"text": 23
