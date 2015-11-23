@@ -9,6 +9,11 @@ var offices = [
 		"Name": "Main Office",
 		"type": "officeBlue",
 		"Post Code": "B3 3DH"
+	},
+	{
+		"Name": "Booking Office",
+		"type": "officeGreen",
+		"Post Code": "NE1 4ST"
 	}
 ]
 
@@ -26,11 +31,33 @@ var plotData = [
 		"Locations": [
             {
             	"Post Code": "L3 8EN",
-                "Mileage": 58
+                "Office": "Liverpool",
+                "Miles": {
+                	"text": 88
+                },
+                "Durations": {
+                	"normal": {
+                		"text": "21 mins"
+                	},
+                	"inTraffic": {
+                		"text": "24 mins"
+                	}
+                }
             },
             {
             	"Post Code": "EH1 2NG",
-            	"Mileage": 123
+            	"Office": "Edinburgh",
+            	"Miles": {
+                	"text": 88
+                },
+                "Durations": {
+                	"normal": {
+                		"text": "21 mins"
+                	},
+                	"inTraffic": {
+                		"text": "24 mins"
+                	}
+                }
             }
         ]
 	},
@@ -47,11 +74,33 @@ var plotData = [
 		"Locations": [
             {
             	"Post Code": "L3 8EN",
-                "Mileage": 43
+                "Office": "Liverpool",
+                "Miles": {
+                	"text": 49
+                },
+                "Durations": {
+                	"normal": {
+                		"text": "17 mins"
+                	},
+                	"inTraffic": {
+                		"text": "48 mins"
+                	}
+                }
             },
             {
             	"Post Code": "EH1 2NG",
-            	"Mileage": 22
+            	"Office": "Edinburgh",
+            	"Miles": {
+                	"text": 23
+                },
+                "Durations": {
+                	"normal": {
+                		"text": "3 mins"
+                	},
+                	"inTraffic": {
+                		"text": "15 mins"
+                	}
+                }
             }
         ]
 	}

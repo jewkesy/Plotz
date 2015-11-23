@@ -18,6 +18,7 @@
             plotData[i].type = 'employee'
             plotData[i]._id = 'emp_'+i
             buildListItem(plotData[i]);
+
             addresses.push(plotData[i]);
         }
 
@@ -33,7 +34,7 @@
 
         var br = $('<br/>')
         var where = $('<span></span>').addClass('location').html(item.Locations[0]);
-        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Locations[0].Mileage + ' miles');
+        var details = $('<span></span>').addClass('details').html('Distance: ' +  item.Locations[0].Miles.text + ' miles');
 
         container.append(who).append(where).append(br).append(details);
 
