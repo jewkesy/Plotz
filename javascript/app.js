@@ -14,7 +14,7 @@
             addresses.push(offices[i]);
         }
 
-        for (var i = 110; i < plotData.length; i++) {
+        for (var i = 0; i < plotData.length; i++) {
             plotData[i].type = 'employee'
             plotData[i]._id = 'emp_'+i
             buildListItem(plotData[i]);
@@ -36,16 +36,20 @@
         var where = $('<span></span>').addClass('location').html(item.Location);
        
 
-        container.append(who).append(where).append(br);
+        container.append(who).append(where);
 
         var list = $('<ul></ul>')
         for (var i = 0; i < item.Locations.length; i++) {
-            var details = $('<li>').addClass('details').html(item.Locations[i].Miles.text + ' miles to ' + item.Locations[i].Office);
+            var details = $('<li>').addClass('details').html(item.Locations[i].Miles.text + ' to ' + item.Locations[i].Office);
 
             list.append(details)
         }
         container.append(list)
         
+
+        container.click(function(evt) {
+            console.log('click event', $(this).attr('id'))
+        })
 
 
         $('#listPlotPoints').append(container)
@@ -85,7 +89,7 @@
     }
 
     function addToMap(item) {
-        console.log(item)
+        // console.log(item)
 
         var thePostCode = ''
         if (item.type == "employee") {
@@ -130,11 +134,19 @@
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                     autoZoom = false;
-                    console.log(markers[i].content)
+                    console.log(markers[i])
                     if (markers[i].content.type == 'employee') {
-                        infowindow.setContent(markers[i].content['Known As'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Address.Town + ', ' + markers[i].content.Address['Post Code'] + '<br/>Distance: ' + markers[i].content.Locations[0].Mileage + ' miles');
+
+                        var listDistances = "<ul>"
+                        for (var j = 0; j < markers[i].content.Locations.length; j++) {
+                            listDistances += "<li>" + markers[i].content.Locations[j].Miles.text + ' to ' + markers[i].content.Locations[j].Office + "</li>"
+
+                        }
+                        listDistances += "</ul>"
+
+                        infowindow.setContent(markers[i].content['FirstName'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Address.Town + ', ' + markers[i].content.Address['PostCode'] + '<br/>Distances: ' + listDistances);
                     } else {
-                        infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['Post Code']);
+                        infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['PostCode']);
                     }
                     
                     infowindow.open(map, marker);
