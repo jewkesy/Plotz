@@ -151,7 +151,15 @@
                             + '<br/>Contractual Base: <b>' + markers[i].content.ContractualBase + '</b>'
                             + '<br/>Distances: ' + listDistances);
                     } else {
-                        infowindow.setContent("<b>" + markers[i].content.Name + '</b><br/>' + markers[i].content['PostCode']);
+                        var listDistances = "<ul>"
+                        for (var j = 0; j < markers[i].content.Locations.length; j++) {
+                            var loc = markers[i].content.Locations[j];
+                            listDistances += "<li>" + loc.Miles.text + ' to <b>' + loc.Office + "</b><ul><li><i>Normal:</i> " 
+                                + loc.Durations[0].normal.text + "</li><li><i>Traffic:</i> " + loc.Durations[0].inTraffic.text + "</li></ul></li>"
+                        }
+                        listDistances += "</ul>"
+
+                        infowindow.setContent("<b>" + markers[i].content.Name + '</b><br/>' + markers[i].content['PostCode'] + '<br/>Distances: ' + listDistances);
                     }
                     
                     infowindow.open(map, marker);
