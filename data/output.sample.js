@@ -27,7 +27,7 @@ var plotData = [
             "PostCode": "SW7 5BD"
         },
 		"Location": "Birmingham",
-		"Contractual Base": "Glasgow",
+		"ContractualBase": "Glasgow",
 		"Locations": [
             {
             	"PostCode": "L3 8EN",
@@ -35,14 +35,14 @@ var plotData = [
                 "Miles": {
                 	"text": 88
                 },
-                "Durations": {
+                "Durations": [{
                 	"normal": {
                 		"text": "21 mins"
                 	},
                 	"inTraffic": {
                 		"text": "24 mins"
                 	}
-                }
+                }]
             },
             {
             	"PostCode": "EH1 2NG",
@@ -50,14 +50,14 @@ var plotData = [
             	"Miles": {
                 	"text": 88
                 },
-                "Durations": {
+                "Durations": [{
                 	"normal": {
                 		"text": "21 mins"
                 	},
                 	"inTraffic": {
                 		"text": "24 mins"
                 	}
-                }
+                }]
             }
         ]
 	},
@@ -70,7 +70,7 @@ var plotData = [
             "PostCode": "CF11 8AZ"
         },
 		"Location": "Liverpool",
-		"Contractual Base": "Newcastle",
+		"ContractualBase": "Newcastle",
 		"Locations": [
             {
             	"PostCode": "L3 8EN",
@@ -78,14 +78,14 @@ var plotData = [
                 "Miles": {
                 	"text": 49
                 },
-                "Durations": {
+                "Durations": [{
                 	"normal": {
                 		"text": "17 mins"
                 	},
                 	"inTraffic": {
                 		"text": "48 mins"
                 	}
-                }
+                }]
             },
             {
             	"PostCode": "EH1 2NG",
@@ -93,14 +93,14 @@ var plotData = [
             	"Miles": {
                 	"text": 23
                 },
-                "Durations": {
+                "Durations": [{
                 	"normal": {
                 		"text": "3 mins"
                 	},
                 	"inTraffic": {
                 		"text": "15 mins"
                 	}
-                }
+                }]
             }
         ]
 	}

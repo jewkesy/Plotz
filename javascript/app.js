@@ -17,6 +17,9 @@
         for (var i = 0; i < plotData.length; i++) {
             plotData[i].type = 'employee'
             plotData[i]._id = 'emp_'+i
+
+            if (plotData[i].Address.PostCode == "PE17 5QG") plotData[i].Address.PostCode = "PE28 5QG"
+
             buildListItem(plotData[i]);
 
             addresses.push(plotData[i]);
@@ -26,10 +29,10 @@
     }
 
     function buildListItem(item) {
-        console.log(item)
+        // console.log(item)
 
-        var container = $('<div></div>').addClass('pending').addClass('listItem').attr('id', item._id).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['Post Code']);
-
+        var container = $('<div></div>').addClass('pending').addClass('listItem').attr('id', item._id).attr('type', item.type).attr('location', item.Location).addClass('item').attr('PostCode', item['PostCode']);
+        var tab = $('<table></table>')
         var who = $('<span></span>').addClass('name').html(item['FirstName'] + ' ' + item.Surname);
 
         var br = $('<br/>')
@@ -49,10 +52,15 @@
 
         container.click(function(evt) {
             console.log('click event', $(this).attr('id'))
+
+            var idx = parseInt($(this).attr('id').replace('emp_', '')) + offices.length
+            console.log(idx, markers[idx])
+            map.panTo(markers[idx].position);
+
         })
 
 
-        $('#listPlotPoints').append(container)
+        $('#leftNav').append(container)
 
         // if ( $('#autoAdd').hasClass('is-checked') ) {
         //             $('#autoAdd').removeClass('is-checked');
@@ -121,15 +129,7 @@
                 map.fitBounds(bounds);   
             }
             
-
             $('#' + item._id).addClass('loaded').removeClass('pending')
-
-
-            // map.fitBounds(bounds);
-            // var listener = google.maps.event.addListener(map, "idle", function() { 
-            //   if (map.getZoom() > 16) map.setZoom(16); 
-            //   google.maps.event.removeListener(listener); 
-            // });
 
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
@@ -139,14 +139,19 @@
 
                         var listDistances = "<ul>"
                         for (var j = 0; j < markers[i].content.Locations.length; j++) {
-                            listDistances += "<li>" + markers[i].content.Locations[j].Miles.text + ' to ' + markers[i].content.Locations[j].Office + "</li>"
-
+                            var loc = markers[i].content.Locations[j];
+                            listDistances += "<li>" + loc.Miles.text + ' to <b>' + loc.Office + "</b><ul><li><i>Normal:</i> " 
+                                + loc.Durations[0].normal.text + "</li><li><i>Traffic:</i> " + loc.Durations[0].inTraffic.text + "</li></ul></li>"
                         }
                         listDistances += "</ul>"
 
-                        infowindow.setContent(markers[i].content['FirstName'] + ' ' + markers[i].content.Surname + '<br/>' + markers[i].content.Address.Town + ', ' + markers[i].content.Address['PostCode'] + '<br/>Distances: ' + listDistances);
+                        infowindow.setContent("<b>" + markers[i].content['FirstName'] + ' ' + markers[i].content.Surname 
+                            + '</b><br/>Home: ' + markers[i].content.Address.Town + ', ' 
+                            + markers[i].content.Address['PostCode'] 
+                            + '<br/>Contractual Base: <b>' + markers[i].content.ContractualBase + '</b>'
+                            + '<br/>Distances: ' + listDistances);
                     } else {
-                        infowindow.setContent(markers[i].content.Name + '<br/>' + markers[i].content['PostCode']);
+                        infowindow.setContent("<b>" + markers[i].content.Name + '</b><br/>' + markers[i].content['PostCode']);
                     }
                     
                     infowindow.open(map, marker);

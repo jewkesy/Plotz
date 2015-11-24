@@ -2,10 +2,6 @@
 	  box-sizing: border-box;
 }
 
-html {
-	height: 100%;
-  max-height: 100%;
-}
 
 body {
   margin: 1px;
@@ -13,30 +9,51 @@ body {
   font-family:  roboto,  Arial, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#656565;
   font-weight:300;
-  font-size: 1.1em;
-  height: 100%;
-  max-height: 100%;
+  font-size: 1.0em;
+}
+
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+  min-width: 768px;
+}
+
+@media (min-width: 768px){
+  #leftNav {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    width: 25%;
+    overflow-y: scroll; 
+  }
+  
+  #right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    width: 75%;
+  }
+}
+
+#leftNav {
+  height:100%;
+}
+
+#right {
+  height:100%;
+
 }
 
 .map {
 	position: absolute;
-	left: 233px;
+	left: 235px;
 	right: 0;
-	height: 100%
-}
-
-.listContainer {
+	top: 0;
 	height: 100%;
-	overflow: auto;
-	width: 230px;
-	float: left;
-
-
-
-}
-
-.list {
-
 }
 
 .listItem {
@@ -75,3 +92,16 @@ body {
 	list-style: none;
 	padding-left: 0px;
 }
+
+
+.gm-style .gm-style-iw {
+    font-weight: 100;
+    font-size: 1.0em !important;
+    overflow: hidden;
+}
+
+.gm-style .gm-style-iw > ul {
+		list-style: none;
+	padding-left: 0px;
+}
+
