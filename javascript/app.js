@@ -1,7 +1,7 @@
     var geocoder;
     var map;
     var markers = [];
-    var delay = getParameterByName('delay') || 900;
+    var delay = getParameterByName('delay') || 950;
     var autoZoom = getParameterByName('autozoom') || true;
     var nextAddress = 0;
     var addresses = [];
@@ -49,16 +49,6 @@
         }
         container.append(list)
         
-
-        container.click(function(evt) {
-            console.log('click event', $(this).attr('id'))
-
-            var idx = parseInt($(this).attr('id').replace('emp_', '')) + offices.length
-            console.log(idx, markers[idx])
-            map.panTo(markers[idx].position);
-
-        })
-
 
         $('#leftNav').append(container)
 
@@ -131,6 +121,13 @@
             
             $('#' + item._id).addClass('loaded').removeClass('pending')
 
+            $('#' + item._id).click(function(evt) {
+                console.log('click event', $(this).attr('id'))
+                var idx = parseInt($(this).attr('id').replace('emp_', '')) + offices.length
+                console.log(idx, markers[idx])
+                map.panTo(markers[idx].position);
+            })
+
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                     autoZoom = false;
@@ -149,6 +146,7 @@
                             + '</b><br/>Home: ' + markers[i].content.Address.Town + ', ' 
                             + markers[i].content.Address['PostCode'] 
                             + '<br/>Contractual Base: <b>' + markers[i].content.ContractualBase + '</b>'
+                            + '<br/>Current Location: <b>' + markers[i].content.Location + '</b>'
                             + '<br/>Distances: ' + listDistances);
                     } else {
                         var listDistances = "<ul>"
