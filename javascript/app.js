@@ -28,6 +28,17 @@
         buildMap();
     }
 
+
+    function buildDashboard(item) {
+        console.log('Building dash', item)
+
+        $('.dashIntro').hide("fast", function () {
+            $('.dashName').text(item.FirstName + ' ' + item.Surname)
+            $('.dashContainer').show()
+        })
+
+    }
+
     function buildListItem(item) {
         // console.log(item)
 
@@ -49,6 +60,11 @@
         }
         container.append(list)
         
+        container.click(function(evt) {
+            // console.log('yet another clicky')
+            buildDashboard(item);
+        });
+
 
         $('#leftNav').append(container)
 

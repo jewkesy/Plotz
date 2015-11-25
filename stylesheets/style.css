@@ -25,8 +25,8 @@ body, html {
     top: 5px;
     bottom: 0;
     left: 5px;
-    width: 23%;
-     height:100%;
+    width: 24%;
+     height:68%;
     overflow-y: scroll; 
   }
   
@@ -48,6 +48,20 @@ body, html {
 	height: 100%;
 }
 
+#dashboard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  height: 30%;
+  border: solid red 1px;
+}
+
+.dashContainer {
+  display: none;
+}
+
+
 .listItem {
 	background-image: url("../images/avatar.png");
 	background-repeat: no-repeat;
@@ -57,6 +71,12 @@ body, html {
 	margin-bottom: 2px;
 	float: left;
 	padding-left: 35px;
+}
+
+
+.listItem:last-child {
+    padding-bottom: 20px;
+   border-bottom: 5px solid gray;
 }
 
 .clickable {
