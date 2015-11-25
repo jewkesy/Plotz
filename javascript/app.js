@@ -119,19 +119,19 @@
                 map.fitBounds(bounds);   
             }
             
-            $('#' + item._id).addClass('loaded').removeClass('pending')
+            $('#' + item._id).addClass('clickable').addClass('loaded').removeClass('pending')
 
             $('#' + item._id).click(function(evt) {
-                console.log('click event', $(this).attr('id'))
+                // console.log('click event', $(this).attr('id'))
                 var idx = parseInt($(this).attr('id').replace('emp_', '')) + offices.length
-                console.log(idx, markers[idx])
+                // console.log(idx, markers[idx])
                 map.panTo(markers[idx].position);
             })
 
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
                     autoZoom = false;
-                    console.log(markers[i])
+                    // console.log(markers[i])
                     if (markers[i].content.type == 'employee') {
 
                         var listDistances = "<ul>"
