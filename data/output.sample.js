@@ -61,7 +61,7 @@ var plotData = [
             "PostCode": "SW7 5BD"
         },
 		"Location": "Birmingham",
-		"ContractualBase": "Glasgow",
+		"ContractualBase": "Liverpool",
 		"Locations": [
             {
             	"PostCode": "L3 8EN",
@@ -80,7 +80,7 @@ var plotData = [
             },
             {
             	"PostCode": "EH1 2NG",
-            	"Office": "Edinburgh",
+            	"Office": "Booking Office",
             	"Miles": {
                 	"text": 88
                 },
@@ -104,11 +104,11 @@ var plotData = [
             "PostCode": "CF11 8AZ"
         },
 		"Location": "Liverpool",
-		"ContractualBase": "Newcastle",
+		"ContractualBase": "Edinburgh",
 		"Locations": [
             {
             	"PostCode": "L3 8EN",
-                "Office": "Liverpool",
+                "Office": "Booking Office",
                 "Miles": {
                 	"text": 49
                 },

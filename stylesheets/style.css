@@ -114,6 +114,21 @@ body, html {
   font-weight: bold;
 }
 
+
+
+.arrow {
+  border: 1px blue solid;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+}
+
+.greenarrow {
+  background-image: url("../images/arrowgreen.png");
+    background-repeat: no-repeat;
+  background-size: 25px 30px;
+}
+
 .gm-style .gm-style-iw {
     font-weight: 100;
     font-size: 1.0em !important;

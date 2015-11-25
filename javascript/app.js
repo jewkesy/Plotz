@@ -7,11 +7,15 @@
     var addresses = [];
     var plotted = [];
     var bounds = new google.maps.LatLngBounds();
-    var interval; 
+    var interval;
+    var newLoc;
 
     function initialize() {
         for (var i = 0; i < offices.length; i++) {
             addresses.push(offices[i]);
+            if (offices[i].type = "officeBlue") {
+                newLoc = offices[i];
+            }
         }
 
         for (var i = 0; i < plotData.length; i++) {
@@ -28,15 +32,48 @@
         buildMap();
     }
 
-
     function buildDashboard(item) {
-        console.log('Building dash', item)
+        // console.log('Building dash', item, newLoc)
 
         $('.dashIntro').hide("fast", function () {
-            $('.dashName').text(item.FirstName + ' ' + item.Surname)
-            $('.dashContainer').show()
-        })
+            
+            //get curr loc and new loc
+            var currLocStats;
+            var newLocStats;
 
+
+            for (var i = 0; i < item.Locations.length; i++) {
+                if (item.Locations[i].Office == newLoc.Name) { 
+                    newLocStats = item.Locations[i];
+                } else if (item.Locations[i].Office == item.ContractualBase) {
+                    currLocStats = item.Locations[i];
+                }
+            }
+
+
+            if (currLocStats && newLocStats) {
+                console.log('comparing', currLocStats, newLocStats)
+
+                $('.dashName').html(item.FirstName + ' ' + item.Surname);
+
+                $('.dashCost').html('COST');
+                $('.dashDiff').html('DIFF');
+
+                var arrowCss = 'greenarrow'
+
+                 $('#arrow').removeClass('greenarrow').removeClass('redarrow').addClass(arrowCss); // reset 
+
+
+                
+
+                    var milesDiff = item
+
+
+
+                    $('.dashContainer').show();
+                }
+
+        });
     }
 
     function buildListItem(item) {
